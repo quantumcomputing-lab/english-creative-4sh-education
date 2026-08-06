@@ -9,9 +9,10 @@ sources, keeping the visual template completely separate from content:
   tales.txt   — one block per play: its tales.txt number (used to find
                 that play's images), pull-quote, and synopsis paragraphs.
   images.txt  — one-paragraph "Image A" / "Image B" scene summaries,
-                used as alt text for images/<N>A.* and <N>B.* (actual
-                extension resolved on disk — most are .png, a couple
-                are .jpeg).
+                used as alt text for images/<N>A.* and <N>B.* (extension
+                resolved on disk — all converted to .webp during the
+                pre-launch performance pass; img_filename() doesn't
+                assume an extension so this stays correct either way).
 
 Per-slab left/right image side and dark/alt background are computed
 purely from a play's POSITION in order.txt (odd = image-left + dark,
@@ -28,9 +29,11 @@ SITE = Path(__file__).parent
 IMG_DIR = SITE / "images"
 
 def img_filename(number: int, side: str) -> str:
-    """Most images are .png, but a couple (23B, 25B) were saved as .jpeg —
-    resolve the real extension on disk instead of assuming .png so the
-    generator never silently emits a broken <img src>."""
+    """Resolve the real file extension on disk rather than assuming one,
+    so the generator never silently emits a broken <img src> — matters
+    because the source images weren't all the same format originally
+    (a couple were .jpeg before the WebP conversion), and protects
+    against the same thing happening again in the future."""
     matches = sorted(IMG_DIR.glob(f"{number}{side}.*"))
     if not matches:
         raise SystemExit(f"ERROR — no image file for {number}{side} in {IMG_DIR}")

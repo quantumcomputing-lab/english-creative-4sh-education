@@ -1,12 +1,14 @@
 /* ═══════════════════════════════════════════
    english.shakespeare.4sh.education — Stylesheet
    Ported from English_Chemistry_Site/css/style.css's alternating-slab
-   format (slab-dark/slab-alt, slab-image-left/right, slab-subhead/
-   slab-cta), extended with a two-image "scene duo" per play and a
-   directional scroll-reveal (fade-in from left / fade-in from the
-   opposite corner) inspired by bankuratourism.com's Elementor
-   entrance-animation pairing (fadeInLeft heading + fadeInDown divider
-   on two side-by-side background-image cards).
+   format (slab-dark/slab-alt, slab-image-left/right), extended with a
+   two-image "scene duo" per play and a directional scroll-reveal
+   (fade-in from left / fade-in from the opposite corner) inspired by
+   bankuratourism.com's Elementor entrance-animation pairing (fadeInLeft
+   heading + fadeInDown divider on two side-by-side background-image
+   cards). slab-definition/slab-subhead/slab-cta/btn-cta — Chemistry's
+   classes for its "hook + provocation" chapter format — were dropped
+   here since this site's tales.txt content doesn't use that structure.
    ═══════════════════════════════════════════ */
 
 /* ── Reset & Base ── */
@@ -128,12 +130,22 @@ a   { text-decoration: none; color: inherit; }
     background: #fff;
     z-index: 2000;
     padding: 5rem 2.5rem 2.5rem;
-    transition: right 0.35s ease;
+    /* visibility:hidden removes the drawer's ~40 links (3 nav + 37
+       plays) from tab order while closed — without it, a keyboard-only
+       user tabbing through the page (at ANY screen width, not just
+       mobile, since this element is never display:none'd) would tab
+       through every off-screen link before reaching visible content.
+       Browsers resolve visibility transitions for discrete properties
+       specially: visible applies instantly on open, hidden only after
+       the slide finishes on close — same proven pattern as .topics-menu
+       above, so the slide animation is unaffected. */
+    visibility: hidden;
+    transition: right 0.35s ease, visibility 0.35s;
     box-shadow: -4px 0 24px rgba(0,0,0,0.08);
     overflow-y: auto;
     font-family: var(--font-sans);
 }
-.mobile-nav.open { right: 0; }
+.mobile-nav.open { right: 0; visibility: visible; }
 
 .mobile-nav nav {
     display: flex;
@@ -266,24 +278,6 @@ a   { text-decoration: none; color: inherit; }
 }
 .slab .slab-text p:last-child { margin-bottom: 0; }
 
-.slab .slab-definition {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 700;
-    font-style: normal;
-    color: var(--muted);
-    margin-bottom: 1.25rem;
-}
-
-.slab .slab-subhead {
-    font-family: var(--font-sans);
-    font-size: 1.05rem;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--charcoal);
-    margin-bottom: 1.25rem !important;
-}
-
 /* ── Play quote (small, quoted, italic — the tales.txt "sub-header") ── */
 .slab .play-quote {
     font-family: var(--font-body);
@@ -294,19 +288,6 @@ a   { text-decoration: none; color: inherit; }
     margin-bottom: 1.5rem !important;
 }
 .slab-dark .play-quote { color: rgba(255,255,255,0.68); }
-
-.slab .slab-cta {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--crimson);
-    margin-top: 1.5rem;
-}
-a.slab-cta {
-    display: inline-block;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
 
 /* ── Section label (English small caps) ── */
 .section-label {
@@ -367,11 +348,8 @@ a.slab-cta {
 }
 .slab-dark .slab-text h2 { color: #fff; }
 .slab-dark .slab-text p  { color: rgba(255,255,255,0.82); }
-.slab-dark .slab-definition { color: rgba(255,255,255,0.7); }
-.slab-dark .slab-subhead { color: #fff; }
 .slab-dark .pull-quote   { color: #fff; }
-.slab-dark .section-label,
-.slab-dark .slab-cta { color: #E58A98; }
+.slab-dark .section-label { color: #E58A98; }
 
 /* ── Alt background slab ── */
 .slab-alt { background: var(--bg-alt); }
@@ -662,24 +640,6 @@ a.slab-cta {
 }
 
 /* ═══════════════════════════════════════════
-   HEADER CTA BUTTON
-═══════════════════════════════════════════ */
-.btn-cta {
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    background: var(--crimson);
-    color: #fff;
-    padding: 0.5rem 1.1rem;
-    border-radius: 4px;
-    white-space: nowrap;
-    transition: background var(--transition);
-    flex-shrink: 0;
-}
-.btn-cta:hover { background: var(--crimson-dk); }
-
-/* ═══════════════════════════════════════════
    CONTACT FORM SLAB
 ═══════════════════════════════════════════ */
 .slab-contact {
@@ -795,7 +755,6 @@ a.slab-cta {
     .slab-first-inner { padding: 3.5rem 1.5rem; }
     .slab-inner { grid-template-columns: 1fr; }
     .desktop-nav { display: none; }
-    .btn-cta     { display: none; }
     .hamburger   { display: flex; }
     .logo        { flex-shrink: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .footer-inner { grid-template-columns: 1fr 1fr; }
