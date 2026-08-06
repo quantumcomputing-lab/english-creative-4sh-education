@@ -1,0 +1,931 @@
+/* ═══════════════════════════════════════════
+   english.shakespeare.4sh.education — Stylesheet
+   Ported from English_Chemistry_Site/css/style.css's alternating-slab
+   format (slab-dark/slab-alt, slab-image-left/right, slab-subhead/
+   slab-cta), extended with a two-image "scene duo" per play and a
+   directional scroll-reveal (fade-in from left / fade-in from the
+   opposite corner) inspired by bankuratourism.com's Elementor
+   entrance-animation pairing (fadeInLeft heading + fadeInDown divider
+   on two side-by-side background-image cards).
+   ═══════════════════════════════════════════ */
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --crimson:     #A51C30;
+    --crimson-dk:  #8C1829;
+    --dark-red:    #8B1E1E;
+    --dark-red-dk: #6B1515;
+    --charcoal:    #1E1E1E;
+    --body-text:   #2D2D2D;
+    --muted:       #666666;
+    --bg:          #FFFFFF;
+    --bg-alt:      #F9F7F4;
+    --bg-dark:     #1A1A1A;
+    --header-h:    72px;
+    --max-w:       1200px;
+    --section-py:  100px;
+    --font-sans:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-serif:  Georgia, 'Times New Roman', serif;
+    --font-body:   Georgia, 'Times New Roman', serif;
+    --transition:  0.3s ease;
+}
+
+html { scroll-behavior: smooth; font-size: 20px; }
+
+section[id] { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+
+body {
+    font-family: var(--font-body);
+    color: var(--body-text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a   { text-decoration: none; color: inherit; }
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+.site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    z-index: 1000;
+}
+
+.header-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+}
+
+.desktop-nav {
+    display: flex;
+    gap: 1.25rem;
+    margin-left: auto;
+    font-family: var(--font-sans);
+}
+
+.desktop-nav a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 500;
+    transition: color var(--transition);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+.desktop-nav a:hover  { color: var(--charcoal); }
+.desktop-nav a.active { color: var(--crimson); font-weight: 600; }
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: auto;
+}
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--charcoal);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════ */
+.mobile-nav {
+    position: fixed;
+    top: 0; right: -100%;
+    width: min(320px, 85vw);
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    padding: 5rem 2.5rem 2.5rem;
+    transition: right 0.35s ease;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+    overflow-y: auto;
+    font-family: var(--font-sans);
+}
+.mobile-nav.open { right: 0; }
+
+.mobile-nav nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.mobile-link {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color var(--transition);
+}
+.mobile-link:hover { color: var(--crimson); }
+
+.mobile-nav-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+}
+
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1999;
+}
+.mobile-nav-overlay.open { display: block; }
+
+/* ═══════════════════════════════════════════
+   SLAB — BASE (reused by every play slab)
+═══════════════════════════════════════════ */
+.slab { padding: var(--section-py) 0; }
+
+/* Full-bleed play slabs carry their own vertical space via .slab-text's
+   padding instead — zeroing it here is what lets the image duo touch
+   the top and bottom of the row, not just its sides. */
+.slab.slab-full { padding: 0; }
+
+.slab-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* ── Full-bleed variant (Bankura aesthetic) — used by every play slab.
+   Chemistry's .slab-inner boxes content into a centered 1200px column;
+   play slabs instead run the image-duo and text edge to edge across
+   the full browser width on desktop, the way bankuratourism.com's
+   two-column rows stretch the whole viewport with no boxed gutter. ── */
+.slab-inner-full {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    align-items: stretch;
+}
+.slab-inner-full .slab-text {
+    padding: clamp(2.5rem, 5vw, 4.5rem);
+    align-self: center;
+}
+.slab-inner-full .slab-image-duo .scene-frame {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* ── Alternating image position ──
+   Markup always authors the image block before the text block, so by
+   default (equal `order`, DOM order breaks the tie) the image already
+   lands in the left grid column. slab-image-left's order:-1 is there
+   for clarity/robustness; slab-image-right is what actually does the
+   work, pulling text ahead of the image so the image falls to the
+   right column instead — this second rule doesn't exist in the
+   Chemistry/Biology/Physics/Math sibling sites' CSS, where only the
+   "-left" half was ever defined, so their "-right" slabs silently
+   render image-left regardless of the class name. Needed here since
+   this site depends on genuine alternation. */
+.slab-image-left .slab-image { order: -1; }
+.slab-image-right .slab-text { order: -1; }
+
+/* ── Shared single-image slab styles (kept for non-play slabs) ── */
+.slab .slab-image {
+    align-self: stretch;
+    border-radius: 6px;
+    overflow: hidden;
+    min-height: 380px;
+    min-width: 0;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+}
+.slab .slab-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+}
+
+/* ── Shared text slab styles ── */
+.slab .slab-text { min-width: 0; }
+.slab .slab-text h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem;
+}
+.slab .slab-text h2.play-title {
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+.slab .slab-text p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+.slab .slab-text p:last-child { margin-bottom: 0; }
+
+.slab .slab-definition {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+}
+
+.slab .slab-subhead {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem !important;
+}
+
+/* ── Play quote (small, quoted, italic — the tales.txt "sub-header") ── */
+.slab .play-quote {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 1.5rem !important;
+}
+.slab-dark .play-quote { color: rgba(255,255,255,0.68); }
+
+.slab .slab-cta {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--crimson);
+    margin-top: 1.5rem;
+}
+a.slab-cta {
+    display: inline-block;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ── Section label (English small caps) ── */
+.section-label {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 1rem;
+}
+
+/* ── Founder slab ── */
+.founder-credentials {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+.founder-credentials li {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--charcoal);
+    padding-left: 1.1rem;
+    position: relative;
+}
+.founder-credentials li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--crimson);
+    font-weight: 700;
+}
+.cred-note { color: var(--muted); font-size: 0.85rem; }
+.founder-photo img { object-position: center 8%; }
+
+/* ── Pull quote (closing thought of a play) ── */
+.pull-quote {
+    border-left: 3px solid var(--crimson);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--charcoal);
+    line-height: 1.7;
+}
+
+/* ── Dark slab variant ── */
+.slab-dark {
+    background: var(--bg-dark);
+    color: #fff;
+}
+.slab-dark .slab-text h2 { color: #fff; }
+.slab-dark .slab-text p  { color: rgba(255,255,255,0.82); }
+.slab-dark .slab-definition { color: rgba(255,255,255,0.7); }
+.slab-dark .slab-subhead { color: #fff; }
+.slab-dark .pull-quote   { color: #fff; }
+.slab-dark .section-label,
+.slab-dark .slab-cta { color: #E58A98; }
+
+/* ── Alt background slab ── */
+.slab-alt { background: var(--bg-alt); }
+
+/* ═══════════════════════════════════════════
+   SLAB 1 — FIRST (FULL-PAGE HERO SLAB, multi-image strip)
+═══════════════════════════════════════════ */
+.slab-first {
+    position: relative;
+    margin-top: var(--header-h);
+    padding: 0;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Dark overlay so text is legible over the image strip — kept light
+   enough that the photos themselves stay visible, not just their
+   silhouettes; text legibility leans on the text-shadow on h1 too. */
+.slab-first::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    z-index: 1;
+}
+
+/* Hero background — several dark, cinematic stills placed side by side,
+   full-bleed across the viewport (the Bankura "full width" cue), with a
+   dark overlay above for legibility. */
+.slab-bg-strip {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    z-index: 0;
+}
+.slab-bg-strip img {
+    flex: 1 1 0;
+    min-width: 0; /* flex items default to min-width:auto, which for a
+        replaced element with intrinsic width/height attributes can
+        refuse to shrink below its natural pixel size — five such
+        images side by side would then force real horizontal overflow
+        on any viewport narrower than their combined intrinsic widths. */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    filter: grayscale(6%) contrast(1.04);
+}
+/* Some hero stills are inherently low-key, night-lit source photos —
+   noticeably darker than the rest even under the same base filter —
+   so each gets its own tuned brightness rather than lightening the
+   whole strip (which would wash out the already-fine images). Tuned
+   per-image, by ear/eye, not a single shared value — 8A originally
+   matched 31A's 1.55 boost but read as overexposed on its own, so it
+   now sits lower. Targeted by exact filename suffix (not position,
+   and not a bare "contains" match — "18A.png"/"28A.png" also exist
+   among the 37 plays' images, so a loose src*="8A." would wrongly
+   catch those too) — survives any reordering of the <img> tags in
+   shell.html. */
+.slab-bg-strip img[src$="/34A.png"] {
+    filter: grayscale(6%) contrast(1.04) brightness(1.3);
+}
+.slab-bg-strip img[src$="/8A.png"] {
+    filter: grayscale(6%) contrast(1.04) brightness(1.15);
+}
+.slab-bg-strip img[src$="/31A.png"] {
+    filter: grayscale(6%) contrast(1.04) brightness(1.55);
+}
+
+/* Text sits above the overlay */
+.slab-first-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+    padding: 5rem 2rem;
+    text-align: left;
+}
+
+.slab-first .slab-text .exam-tag {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 1rem;
+}
+
+.slab-first .slab-text h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #ffffff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    margin-bottom: 1.5rem;
+}
+
+.slab-first .slab-text p {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 1rem;
+}
+.slab-first .slab-text p:last-child { margin-bottom: 0; }
+
+/* ═══════════════════════════════════════════
+   SCENE DUO — TWO-IMAGE REVEAL (per play)
+   Two portrait stills side by side, each sliding in from an opposite
+   corner as the slab scrolls into view — the effect that read as "the
+   pictures reveal themselves slowly" on bankuratourism.com, rebuilt here
+   with plain CSS transitions. Driven by its own IntersectionObserver in
+   js/main.js (separate from the one-time .fade-in observer) that toggles
+   .visible on and off as .reveal-a / .reveal-b cross the viewport, so the
+   reveal replays every time a reader scrolls past — not just once.
+═══════════════════════════════════════════ */
+.slab-image-duo {
+    align-self: stretch;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    min-height: 380px;
+    min-width: 0;
+    border-radius: 0;
+    overflow: visible;
+    box-shadow: none;
+}
+.slab-image-duo .scene-frame {
+    border-radius: 6px;
+    overflow: hidden;
+    min-width: 0;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+}
+.slab .slab-image-duo .scene-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+}
+
+/* Reveal — directional slide-and-scale, staggered so the second frame
+   lags slightly behind the first instead of arriving in lockstep. */
+.slab-image-duo .scene-frame.reveal-a,
+.slab-image-duo .scene-frame.reveal-b {
+    opacity: 0;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.slab-image-duo .scene-frame.reveal-a { transform: translate(-56px, 28px) scale(0.96); }
+.slab-image-duo .scene-frame.reveal-b { transform: translate(56px, -28px) scale(0.96); transition-delay: 0.22s; }
+.slab-image-duo .scene-frame.reveal-a.visible,
+.slab-image-duo .scene-frame.reveal-b.visible { opacity: 1; transform: translate(0, 0) scale(1); }
+
+/* ═══════════════════════════════════════════
+   FADE-IN ANIMATION
+═══════════════════════════════════════════ */
+.fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   BACK TO TOP
+═══════════════════════════════════════════ */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--crimson);
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity var(--transition), transform var(--transition), background var(--transition);
+    z-index: 900;
+}
+.back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+.back-to-top:hover { background: var(--crimson-dk); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.site-footer {
+    background: var(--charcoal);
+    color: #fff;
+    padding: 4rem 0 0;
+    font-family: var(--font-sans);
+}
+
+.footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+}
+.social-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #aaa;
+    border: 1px solid #444;
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+    transition: color var(--transition), border-color var(--transition);
+}
+.social-link:hover { color: #fff; border-color: #fff; }
+
+.footer-logo {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+.footer-tagline {
+    font-size: 0.875rem;
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.footer-nav-title {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--crimson);
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+}
+.footer-nav, .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.footer-nav a, .footer-contact a {
+    font-size: 0.875rem;
+    color: #aaa;
+    transition: color var(--transition);
+}
+.footer-nav a:hover, .footer-contact a:hover { color: #fff; }
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    padding: 1.25rem 2rem;
+}
+.footer-bottom p {
+    font-size: 0.8rem;
+    color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER CTA BUTTON
+═══════════════════════════════════════════ */
+.btn-cta {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: var(--crimson);
+    color: #fff;
+    padding: 0.5rem 1.1rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background var(--transition);
+    flex-shrink: 0;
+}
+.btn-cta:hover { background: var(--crimson-dk); }
+
+/* ═══════════════════════════════════════════
+   CONTACT FORM SLAB
+═══════════════════════════════════════════ */
+.slab-contact {
+    background: var(--bg-dark);
+    padding: var(--section-py) 0;
+}
+.slab-contact.slab-contact-light { background: var(--bg-alt); }
+.slab-contact.slab-contact-light .whatsapp-lead { color: var(--muted); }
+.slab-contact.slab-contact-light .form-note     { color: var(--muted); }
+
+.contact-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.contact-inner h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--crimson);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+}
+
+.contact-whatsapp {
+    text-align: center;
+}
+.contact-whatsapp h2 {
+    margin-bottom: 1rem;
+}
+.whatsapp-lead {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 480px;
+    margin: 0 auto 2.25rem;
+}
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: #25D366;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 1.05rem 2.75rem;
+    border-radius: 50px;
+    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.32);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.btn-whatsapp:hover {
+    background: #1fb958;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(37, 211, 102, 0.42);
+}
+.whatsapp-icon {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+}
+.contact-whatsapp .form-note {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.btn-red {
+    display: inline-block;
+    background: var(--dark-red);
+    color: #fff;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background var(--transition);
+    margin-top: 1.5rem;
+}
+.btn-red:hover { background: var(--dark-red-dk); }
+
+.btn-red-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+}
+.btn-red-group .btn-red {
+    margin-top: 0;
+    padding: 0.55rem 2rem;
+    text-align: center;
+}
+
+.form-note {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 0.5rem;
+}
+
+.contact-mobile {
+    color: var(--crimson) !important;
+    font-weight: 700 !important;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+    .slab-first-inner { padding: 3.5rem 1.5rem; }
+    .slab-inner { grid-template-columns: 1fr; }
+    .desktop-nav { display: none; }
+    .btn-cta     { display: none; }
+    .hamburger   { display: flex; }
+    .logo        { flex-shrink: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    /* 5 equal-width portrait stills read fine at 1/5 of a desktop
+       viewport, but at 1/5 of a phone's width each one crops down to
+       an unrecognizable vertical sliver — drop the 2 lowest-priority
+       images so the rest stay legible instead of just decorative
+       noise. Driven by each image's data-priority attribute (set in
+       shell.html), not its position, so reordering the strip never
+       requires touching this rule. */
+    .slab-bg-strip img[data-priority="4"],
+    .slab-bg-strip img[data-priority="5"] { display: none; }
+}
+
+@media (max-width: 600px) {
+    :root { --section-py: 64px; }
+    .slab-first-inner { padding: 2.5rem 1.25rem; }
+    .slab-first .slab-text h1 { font-size: 1.5rem; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .back-to-top { bottom: 1.25rem; right: 1.25rem; }
+    .btn-whatsapp { font-size: 0.95rem; padding: 1rem 1.75rem; white-space: nowrap; }
+    .whatsapp-icon { width: 22px; height: 22px; }
+}
+
+@media (max-width: 480px) {
+    .slab-image-duo { grid-template-columns: 1fr; }
+    /* Drop the 3rd-priority image too, so the smallest phones show
+       2 wide, legible stills instead of 3 medium ones. */
+    .slab-bg-strip img[data-priority="3"] { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   PLAYS DROPDOWN (desktop header)
+═══════════════════════════════════════════ */
+.topics-dropdown { position: relative; margin-left: 0.25rem; }
+.topics-toggle {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    background: none;
+    border: 1px solid rgba(0,0,0,0.16);
+    color: var(--charcoal);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    transition: border-color var(--transition), color var(--transition);
+}
+.topics-toggle .chevron { font-size: 0.65rem; transition: transform 0.25s ease; }
+.topics-toggle:hover,
+.topics-dropdown.open .topics-toggle { border-color: var(--crimson); color: var(--crimson); }
+.topics-dropdown.open .chevron { transform: rotate(180deg); }
+
+.topics-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.16);
+    padding: 1.25rem 1.5rem;
+    width: 560px;
+    max-width: calc(100vw - 2rem);
+    max-height: min(70vh, 560px);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 1100;
+}
+.topics-dropdown.open .topics-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.topics-menu-heading {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin: 0 0 0.6rem;
+}
+.topics-chapters-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem 1.75rem; }
+.topics-menu-section a {
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    line-height: 1.3;
+    color: var(--body-text);
+    padding: 0.25rem 0;
+    overflow-wrap: break-word;
+    transition: color var(--transition);
+}
+.topics-menu-section a:hover { color: var(--crimson); }
+
+/* Mobile plays grid (inside mobile drawer) */
+.mobile-topics-heading {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin: 1.5rem 0 0.75rem;
+}
+.mobile-topics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 1rem;
+    padding-bottom: 1.5rem;
+}
+.mobile-topics-grid a {
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.3;
+    color: var(--charcoal);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    overflow-wrap: break-word;
+}
+.mobile-topics-grid a:hover { color: var(--crimson); }
+
+@media (max-width: 900px) {
+    .topics-dropdown { display: none; }
+}

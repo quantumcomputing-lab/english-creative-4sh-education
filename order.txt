@@ -1,0 +1,40 @@
+ORDER — english_shakespeare_site
+==========================================
+
+1. The Merchant of Venice
+2. The Tempest
+3. Macbeth
+4. Hamlet
+5. Julius Caesar
+6. King Lear
+7. Othello
+8. Romeo and Juliet
+9. Antony and Cleopatra
+10. The Taming of the Shrew
+11. The Winter's Tale
+12. Measure for Measure
+13. The Comedy of Errors
+14. Much Ado About Nothing
+15. A Midsummer Night's Dream
+16. Twelfth Night
+17. As You Like It
+18. All's Well That Ends Well
+19. Love's Labour's Lost
+20. Coriolanus
+21. Cymbeline
+22. Pericles, Prince of Tyre
+23. Titus Andronicus
+24. Troilus and Cressida
+25. Timon of Athens
+26. The Merry Wives of Windsor
+27. The Two Gentlemen of Verona
+28. Richard II
+29. Richard III
+30. Henry IV, Part 1
+31. Henry IV, Part 2
+32. Henry V
+33. Henry VI, Part 1
+34. Henry VI, Part 2
+35. Henry VI, Part 3
+36. Henry VIII
+37. King John
