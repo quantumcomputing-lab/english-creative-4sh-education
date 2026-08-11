@@ -410,17 +410,17 @@ a   { text-decoration: none; color: inherit; }
    per-image, by ear/eye, not a single shared value — 8A originally
    matched 31A's 1.55 boost but read as overexposed on its own, so it
    now sits lower. Targeted by exact filename suffix (not position,
-   and not a bare "contains" match — "18A.png"/"28A.png" also exist
+   and not a bare "contains" match — "18A.webp"/"28A.webp" also exist
    among the 37 plays' images, so a loose src*="8A." would wrongly
    catch those too) — survives any reordering of the <img> tags in
    shell.html. */
-.slab-bg-strip img[src$="/34A.png"] {
+.slab-bg-strip img[src$="/34A.webp"] {
     filter: grayscale(6%) contrast(1.04) brightness(1.3);
 }
-.slab-bg-strip img[src$="/8A.png"] {
+.slab-bg-strip img[src$="/8A.webp"] {
     filter: grayscale(6%) contrast(1.04) brightness(1.15);
 }
-.slab-bg-strip img[src$="/31A.png"] {
+.slab-bg-strip img[src$="/31A.webp"] {
     filter: grayscale(6%) contrast(1.04) brightness(1.55);
 }
 
