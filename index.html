@@ -7,6 +7,47 @@
     <title>Learn English Through Shakespeare's 37 Plays | 4sh.education</title>
     <meta name="description" content="All 37 Shakespeare plays retold in plain, powerful English — a masterclass in language and creative writing, one story at a time.">
 
+    <link rel="canonical" href="https://english.creative.4sh.education/">
+    <link rel="alternate" hreflang="en" href="https://english.creative.4sh.education/">
+    <link rel="alternate" hreflang="x-default" href="https://english.creative.4sh.education/">
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://english.creative.4sh.education/">
+    <meta property="og:site_name"   content="4sh.education">
+    <meta property="og:title"       content="Learn English Through Shakespeare's 37 Plays">
+    <meta property="og:description" content="All 37 Shakespeare plays retold in plain, powerful English — a masterclass in language and creative writing, one story at a time.">
+    <meta property="og:image"       content="https://english.creative.4sh.education/img/og-image.jpg">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale"      content="en_IN">
+
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Learn English Through Shakespeare's 37 Plays">
+    <meta name="twitter:description" content="All 37 Shakespeare plays retold in plain, powerful English — a masterclass in language and creative writing, one story at a time.">
+    <meta name="twitter:image"       content="https://english.creative.4sh.education/img/og-image.jpg">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Organization", "EducationalOrganization"],
+      "name": "4sh.education",
+      "url": "https://english.creative.4sh.education/",
+      "logo": "https://english.creative.4sh.education/img/favicon-180.png",
+      "description": "All 37 Shakespeare plays retold in plain, powerful English — a masterclass in language and creative writing, one story at a time.",
+      "inLanguage": "en",
+      "founder": { "@type": "Person", "name": "Dr. Samudra Dasgupta" },
+      "contactPoint": { "@type": "ContactPoint", "email": "support@4sh.education", "contactType": "general" },
+      "sameAs": [
+        "https://in.linkedin.com/in/samudra-dasgupta"
+      ]
+    }
+    </script>
+
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
 </head>
@@ -144,10 +185,10 @@
             </div>
             <div class="slab-first-inner">
                 <div class="slab-text">
-                    <span class="exam-tag">English &middot; Creative Writing &middot; All 37 Shakespeare Plays</span>
-                    <h1>Every play is a masterclass in English — hiding inside a story you'll actually want to read.</h1>
-                    <p>Grammar drills fade from memory. Stories don't. Each of Shakespeare's 37 plays is retold here in plain, powerful English — built to sharpen your vocabulary, your sentence sense, and your instinct for how a story is built, one page at a time.</p>
-                    <p>This isn't Shakespeare translated into boredom. It's ambition, love, betrayal, and forgiveness, still asking the same questions four centuries later — and a way into English that teaches you to write, not just to memorise.</p>
+                    <span class="exam-tag">Have Fun &middot; Learn English &middot; All 37 Shakespeare Plays</span>
+                    <h1>Shakespeare didn't get the grammar right either. So what's stopping you?</h1>
+                    <p>English is the world's shared language, not a spelling test. Shakespeare invented words when the right one didn't exist. He bent grammar to fit his lines. He spelled his own name five different ways. Nobody marked him down for it — the stories are what survived.</p>
+                    <p>So relax. Forget the "correct" word, the perfect sentence, the comma in the right place. Read these 37 plays, retold in plain, fun English, and just have a blast. That's how you actually learn to write — not from red ink, but from wanting to know what happens next.</p>
                 </div>
             </div>
         </section>
@@ -1398,12 +1439,6 @@
                 <span class="footer-logo">Learn English &middot; Creative Writing</span>
                 <p class="footer-tagline">37 Shakespeare stories. Perfect to learn English. And begin your creative writing journey.</p>
                 <div class="footer-social">
-                    <a href="https://english.chemistry.4sh.education" target="_blank" rel="noopener" class="social-link">4sh.education (Chemistry)</a>
-                    <a href="https://english.biology.4sh.education" target="_blank" rel="noopener" class="social-link">4sh.education (Biology)</a>
-                    <a href="https://english.physics.4sh.education" target="_blank" rel="noopener" class="social-link">4sh.education (Physics)</a>
-                    <a href="https://english.math.4sh.education" target="_blank" rel="noopener" class="social-link">4sh.education (Math)</a>
-                    <a href="https://bengali.4sh.education" target="_blank" rel="noopener" class="social-link">4sh.education (Bengali)</a>
-                    <a href="https://4shfoundation.org" target="_blank" rel="noopener" class="social-link">4sh Foundation</a>
                     <a href="https://in.linkedin.com/in/samudra-dasgupta" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
                 </div>
             </div>
@@ -1428,5 +1463,19 @@
 
     <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
 
+    <!-- Google Analytics — deferred until after load so gtag.js stays off the
+         critical rendering path (matches sibling sites; shared property). -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RVZHNG0TMM');
+      window.addEventListener('load', () => {
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-RVZHNG0TMM';
+        document.head.appendChild(s);
+      });
+    </script>
 </body>
 </html>

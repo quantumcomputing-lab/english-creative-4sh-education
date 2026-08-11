@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://english.creative.4sh.education/sitemap.xml
