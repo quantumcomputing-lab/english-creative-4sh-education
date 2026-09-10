@@ -952,6 +952,16 @@ a   { text-decoration: none; color: inherit; }
     background: var(--bg-dark);
     padding: var(--section-py) 0;
 }
+/* Light variant -- this site's last play slab lands on slab-dark (odd
+   count), so the fixed-dark contact slab right after it would otherwise
+   sit back-to-back with another dark slab. Flipping the contact slab to
+   light instead of touching the play alternation (which would ripple
+   backwards through the whole page) keeps the dark/light rhythm intact
+   all the way to the end. */
+.slab-contact.slab-contact-light { background: var(--bg-alt); }
+.slab-contact.slab-contact-light .whatsapp-lead { color: var(--muted); }
+.slab-contact.slab-contact-light .contact-email-display { color: var(--charcoal); }
+.slab-contact.slab-contact-light .form-note { color: var(--muted); }
 
 .contact-inner {
     max-width: 640px;
@@ -982,6 +992,21 @@ a   { text-decoration: none; color: inherit; }
     max-width: 480px;
     margin: 0 auto 2.25rem;
 }
+/* Inline trigger for the same CV modal "Connect with me" opens -- reset
+   to look like plain text with a link affordance, not a button, since it
+   sits mid-sentence in .whatsapp-lead. */
+.contact-name-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.contact-name-link:hover { color: var(--crimson); }
 .btn-schedule {
     display: inline-flex;
     align-items: center;

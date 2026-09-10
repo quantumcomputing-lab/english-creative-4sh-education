@@ -50,14 +50,14 @@ const mobileLinks = mobileNav?.querySelectorAll('a') ?? [];
 function openNav() {
     mobileNav.classList.add('open');
     navOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    lockBodyScroll();
     hamburger?.setAttribute('aria-expanded', 'true');
     hamburger?.setAttribute('aria-label', 'Close menu');
 }
 function closeNav() {
     mobileNav.classList.remove('open');
     navOverlay.classList.remove('open');
-    document.body.style.overflow = '';
+    unlockBodyScroll();
     hamburger?.setAttribute('aria-expanded', 'false');
     hamburger?.setAttribute('aria-label', 'Open menu');
 }
@@ -336,19 +336,22 @@ document.querySelectorAll('.js-copy-email').forEach(btn => {
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeVideoModal(); });
 })();
 
-// ── Founder CV modal — "Connect with me" opens a career-journey summary
-//    in place instead of handing off to LinkedIn. ──
+// ── Founder CV modal — "Connect with me" (About Me) and "Dr. Samudra
+//    Dasgupta" (contact slab) both open the same career-journey summary
+//    in place instead of handing off to LinkedIn. Class-based, not a
+//    single id, since there are now two independent trigger elements on
+//    the page. ──
 (function () {
-    const trigger = document.getElementById('openCvModal');
+    const triggers = document.querySelectorAll('.js-open-cv');
     const modal = document.getElementById('cvModal');
     const modalClose = document.getElementById('cvModalClose');
-    if (!trigger || !modal || !modalClose) return;
+    if (!triggers.length || !modal || !modalClose) return;
 
     let lastFocusedElement = null;
     const cvModalFocusTrap = trapFocus(modal);
 
-    function openCvModal() {
-        lastFocusedElement = trigger;
+    function openCvModal(triggerEl) {
+        lastFocusedElement = triggerEl;
         modal.hidden = false;
         modal.setAttribute('aria-hidden', 'false');
         lockBodyScroll();
@@ -364,7 +367,9 @@ document.querySelectorAll('.js-copy-email').forEach(btn => {
         lastFocusedElement = null;
     }
 
-    trigger.addEventListener('click', openCvModal);
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => openCvModal(trigger));
+    });
     modalClose.addEventListener('click', closeCvModal);
     modal.addEventListener('click', e => { if (e.target === modal) closeCvModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeCvModal(); });
